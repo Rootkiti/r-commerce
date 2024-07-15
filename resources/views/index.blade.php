@@ -19,7 +19,7 @@
                     </li>
                 </ul>
                 <span class="navbar-text">
-                    <a href="#" class="nav-link" rel="noopener noreferrer">Login</a>
+                    <a href="{{route('login')}}" class="nav-link" rel="noopener noreferrer">Login</a>
                 </span>
                 </div>
         </div>
