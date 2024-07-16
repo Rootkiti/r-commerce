@@ -31,3 +31,14 @@ Route::post('/upload',[UploadController::class, 'uploadPost'])->name('upload.pos
 
 Route::get('/category',[ProductController::class, 'productcategory'])->name('category');
 Route::post('/category',[ProductController::class, 'productCategoryPost'])->name('category.post');
+
+Route::get('/manageCategory',[ProductController::class, 'manageCategories'])->name('managecat');
+Route::get('/edit-category/{id}',[ProductController::class, 'editCategory']);
+Route::post('/updatecategory/{id}',[ProductController::class, 'editCategoryPost'])->name('editcategory.post');
+
+Route::get('/deletecategory/{id}',[ProductController::class, 'deleteCategory']);
+
+// product
+
+Route::get('/addProduct',[ProductController::class, 'addProduct'])->name('add product');
+Route::post('/addProduct',[ProductController::class, 'addProductPost'])->name('addProduct.post');

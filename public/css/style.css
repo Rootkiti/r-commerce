@@ -132,8 +132,12 @@ header {
     /* background-color: #007bff; */
     background-color:#f1f1f1;
      width:200px; 
-     height: 86vh;
+     height: 89vh;
 }
 .category-form{
     width: 300px;
+}
+
+.category-container, .manage_categories{
+    margin-top: -40%;
 }
