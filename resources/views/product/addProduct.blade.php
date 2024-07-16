@@ -26,8 +26,8 @@
         <div class="mb-1">
             <label  class="form-label">Product name</label>
             <input type="hidden">
-            <input type="text" name="product_name" class="form-control" value="{{old('cat_name')}}">
-            <span style="color:red;">@error('cat_name'){{$message}}@enderror</span>
+            <input type="text" name="product_name" class="form-control" value="{{old('product_name')}}">
+            <span style="color:red;">@error('product_name'){{$message}}@enderror</span>
           </div>
           <div class="mb-1">
             <label  class="form-label">Product Category</label>
@@ -36,36 +36,35 @@
                     <option>No Product Categories Available</option>
                     
                </select>
-            <span style="color:red;">@error('cat_name'){{$message}}@enderror</span>
             @else
-            <select class="form-select form-select-sm" aria-label="Small select example">
+            <select class="form-select form-select-sm" name="product_category" value="{{old('product_name')}} aria-label="Small select example">
                 <option>Select Product Category</option>
                 @foreach($categories as $category)
                     <option value="{{$category->id}}">{{$category->category_name}}</option>
                 @endforeach
 
               </select>
-            <span style="color:red;">@error('cat_name'){{$message}}@enderror</span>
+            <span style="color:red;">@error('product_category'){{$message}}@enderror</span>
             @endif
             
           </div>
           
           <div class="mb-1">
             <label  class="form-label">Product Cost</label>
-            <input type="text" name="product_cost" class="form-control" value="{{old('cat_name')}}">
-            <span style="color:red;">@error('cat_name'){{$message}}@enderror</span>
+            <input type="text" name="product_cost" class="form-control" value="{{old('product_cost')}}">
+            <span style="color:red;">@error('product_cost'){{$message}}@enderror</span>
           </div>
           
           <div class="mb-1">
             <label class="form-label">Product Description</label>
-            <textarea class="form-control" name="cat_details" rows="3" >{{old('cat_details')}}</textarea>
-            <span style="color:red;">@error('cat_details'){{$message}}@enderror</span>
+            <textarea class="form-control" name="product_details" rows="3" >{{old('product_details')}}</textarea>
+            <span style="color:red;">@error('product_details'){{$message}}@enderror</span>
 
           </div>
           <div class="mb-1">
             <label  class="form-label">Product Photo</label>
             <input class="form-control" type="file" name="image" id="">
-            <span style="color:red;">@error('cat_name'){{$message}}@enderror</span>
+            <span style="color:red;">@error('image'){{$message}}@enderror</span>
           </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>

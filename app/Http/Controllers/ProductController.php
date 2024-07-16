@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 class ProductController extends Controller
 {
     //
@@ -133,5 +134,29 @@ class ProductController extends Controller
             // print_r($categories);
             return view('product.addProduct')->with('categories', $categories);
             // return view('product.addProduct');
+        }
+
+        function addProductPost(Request $request){
+            $request->validate([
+                'product_name'=>'required',
+                'product_category'=>'required',
+                'product_cost'=>'required',
+                'product_details'=>'required',
+                'image'=>'required'
+
+                
+            ]);
+            $uploadedFileUrl = cloudinary()->upload($request->file('file')->getRealPath(),['folder'=>'r-commerce'])->getSecurePath();
+
+            
+            $data['category_name'] = $request->cat_name;
+            $data['category_details'] = $request->cat_details;
+    
+            $category = Category::create($data);
+    
+            if(!$category){
+                return redirect(route('category'))->with('error', 'registration failed');
+            }
+            return redirect(route('category'))->with('success', 'category added!!');
         }
 }
