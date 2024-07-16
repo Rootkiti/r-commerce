@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authmanager;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return view('home');
@@ -27,3 +28,6 @@ Route::get('/logout',[Authmanager::class, 'logout'])->name('logout');
 
 Route::get('/upload',[UploadController::class, 'upload'])->name('upload');
 Route::post('/upload',[UploadController::class, 'uploadPost'])->name('upload.post');
+
+Route::get('/category',[ProductController::class, 'productcategory'])->name('category');
+Route::post('/category',[ProductController::class, 'productCategoryPost'])->name('category.post');
