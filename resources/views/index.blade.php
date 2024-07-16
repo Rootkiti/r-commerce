@@ -39,7 +39,7 @@
         <div class="product-list">
             @foreach($products as $product)
                 <div class="product-item">
-                    <img src="images/image-1.jpeg" alt="{{ $product['name'] }}">
+                    <img src="https://res.cloudinary.com/dfv1pynlp/image/upload/v1721073497/kbjnmt9fxb5fhh7qthsa.png" alt="{{ $product['name'] }}">
                     <h2>{{ $product['name'] }}</h2>
                     <p>{{ $product['cost'] }}</p>
                     <button class="add-to-cart" data-name="{{ $product['name'] }}" data-cost="{{ $product['cost'] }}">Add to Cart</button>

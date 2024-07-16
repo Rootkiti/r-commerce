@@ -121,3 +121,16 @@ header {
         width: calc(100% - 20px);
     }
 }
+
+
+.left-content{
+    margin-bottom: auto;
+    padding: 30px 10px  10px  10px ;
+}
+
+.left-bar{
+    /* background-color: #007bff; */
+    background-color:#f1f1f1;
+     width:200px; 
+     height: 86vh;
+}
