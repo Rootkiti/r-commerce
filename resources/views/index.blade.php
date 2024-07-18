@@ -19,7 +19,15 @@
                     </li>
                 </ul>
                 <span class="navbar-text">
-                    <a href="{{route('login')}}" class="nav-link" rel="noopener noreferrer">Login</a>
+                    <ul class="navbar-nav">
+                        <li>
+                            <a href="#" class="nav-link"> <i class="fa fa-cart-shopping"> ({{\Gloudemans\Shoppingcart\Facades\Cart::content()->count()}})</i></a>
+                        </li>
+                        <li>
+                            <a href="{{route('login')}}" class="nav-link" rel="noopener noreferrer">Login</a>
+
+                        </li>
+                    </ul>
                 </span>
                 </div>
         </div>
@@ -40,10 +48,28 @@
         <div class="product-list">
             @foreach($products as $product)
                 <div class="product-item">
+                    @if(session()->has('success'))
+                        <div class="alert alert-success alert-dismissible fade show">{{session('success')}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+
+                    @endif
                     <img src="{{$product->imageUrl}}" alt="{{ $product->product_name }}">
                     <h2>{{ $product->product_name}}</h2>
                     <p>{{ $product->price }}</p>
-                    <button class="add-to-cart" data-name="{{ $product->product_name }}" data-cost="{{ $product->price }}">Add to Cart</button>
+                    @if ($cart->where('id',$product->id)->count())
+                        In Cart
+                    @else
+                        <form action="{{route('cart.store')}}" method="POST" style="border: none;">
+                            @csrf
+                            <input type="hidden" name="price" value="{{ $product->price }}">
+                            <input type="hidden" name="name" value="{{ $product->product_name }}">
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                            <button class="btn btn-primary">Add to Cart</button>
+                        </form>
+                    @endif
+                    
                     <a href="#" class="more-info" data-description="{{ $product->description }}">More Info</a>
                 </div>
             @endforeach

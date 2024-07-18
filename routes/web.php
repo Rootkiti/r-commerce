@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authmanager;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+
 
 Route::get('/home', function () {return view('home');})->name('dashboard');
 Route::get('/', [App\Http\Controllers\ProductController::class, 'index'])->name('index');
@@ -42,4 +44,10 @@ Route::get('/addProduct',[ProductController::class, 'addProduct'])->name('add pr
 Route::post('/addProduct',[ProductController::class, 'addProductPost'])->name('addProduct.post');
 Route::get('/manageProducts',[ProductController::class, 'viewproducts'])->name('manage products');
 Route::get('/editProduct/{id}',[ProductController::class, 'editProduct']);
-Route::get('/deleteProduct/{id}',[ProductController::class, 'deleteProduct']);
+Route::get('/deleteProduct/{id}',[ProductController::class, 'deleteProduct']); 
+Route::post('/updateproduct/{id}',[ProductController::class, 'editProductPost'])->name('editproduct.post');
+
+// cart
+Route::post('/',[CartController::class, 'store'])->name('cart.store');
+
+

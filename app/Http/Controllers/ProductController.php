@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 class ProductController extends Controller
 {
@@ -14,8 +15,10 @@ class ProductController extends Controller
         // Normally, you'd fetch this data from a database.
         $products = Product::all();
         $categories = Category::all();
+        $cart = Cart::content();
 
-        return view('index', ['products' => $products,'categories'=>$categories]);
+        // dd($cart);
+        return view('index', ['products' => $products,'categories'=>$categories,'cart'=>$cart]);
     }
    
     // product count
@@ -181,10 +184,90 @@ class ProductController extends Controller
                 return redirect(route('manage products'))->with('error', 'Something went wrong');
 
             }
-            // return view('product.delete')->with(['img'=>$product->imageUrl,'token'=>$publicId]);
+           
+        }
 
-               
-            // // get url from a file
-            // $url = Cloudinary::getUrl($publicId);
+        function editProductPost($id, Request $request){
+            // checking id
+            $product = Product::find($id);
+            if($product == ''){
+                return redirect()->to('manage products');
+            }
+    
+            // validation
+            $request->validate([
+                'product_name'=>'required',
+                'product_category'=>'required',
+                'price'=>'required',
+                'description'=>'required',
+                             
+            ]);
+                
+            if($request->image == '')
+            {
+                $product_update = Product::find($id)->update([
+                'product_name'=>$request->product_name,
+                'category'=>$request->product_category,
+                'price'=>$request->price,
+                'description'=>$request->description
+
+              ]);
+        
+                if($product_update){
+                    return redirect(route('manage products'))->with('success', 'product Updated!!');
+        
+                }
+                else{
+                    return redirect(route('manage products'))->with('error', 'There was an error');
+        
+                }
+            }
+            else{
+
+
+                $product = Product::find($id);
+                $token = explode('/', $product->imageUrl);
+                $token2 = explode('.', $token[sizeof($token)-1]);
+                $publicId=$token2[0];
+                $dest =Cloudinary::destroy('r-commerce/'.$publicId);
+                            
+                if($dest['result'] == 'ok'){
+
+                    $uploadedFileUrl = cloudinary()->upload($request->file('image')->getRealPath(),['folder'=>'r-commerce'])->getSecurePath();
+                    if($uploadedFileUrl !=''){
+                        $product_update = Product::find($id)->update([
+                            'product_name'=>$request->product_name,
+                            'category'=>$request->product_category,
+                            'price'=>$request->price,
+                            'description'=>$request->description,
+                            'imageUrl'=>$uploadedFileUrl
+            
+                        ]);
+                
+                        if($product_update){
+                            return redirect(route('manage products'))->with('success', 'product Updated!!');
+                
+                        }
+                        else{
+                            return redirect(route('manage products'))->with('error', 'Something Went Wrong !');
+                
+                        }
+                    }
+                    else{
+                         return redirect(route('add product'))->with('error', 'something went wrong while uploading image');
+
+                    }
+
+                
+                }
+                else{
+                    return redirect(route('manage products'))->with('error', 'Something went wrong');
+
+                }               
+
+                }
+        
+            
+    
         }
 }
