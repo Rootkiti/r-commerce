@@ -6,7 +6,7 @@
 <div class="category-container" style="margin-top: -46%;">
     
 
-    <form action="{{route('addProduct.post')}}" method="POST" style="width: 500px;">
+    <form action="{{route('addProduct.post')}}" method="POST" style="width: 500px;" enctype="multipart/form-data">
         @csrf
 
         @if(session()->has('error'))
@@ -37,7 +37,7 @@
                     
                </select>
             @else
-            <select class="form-select form-select-sm" name="product_category" value="{{old('product_name')}} aria-label="Small select example">
+            <select class="form-select form-select-sm" name="product_category" value="{{old('product_category')}} aria-label="Small select example">
                 <option>Select Product Category</option>
                 @foreach($categories as $category)
                     <option value="{{$category->id}}">{{$category->category_name}}</option>
@@ -50,15 +50,15 @@
           </div>
           
           <div class="mb-1">
-            <label  class="form-label">Product Cost</label>
-            <input type="text" name="product_cost" class="form-control" value="{{old('product_cost')}}">
-            <span style="color:red;">@error('product_cost'){{$message}}@enderror</span>
+            <label  class="form-label">Price</label>
+            <input type="text" name="price" class="form-control" value="{{old('price')}}">
+            <span style="color:red;">@error('price'){{$message}}@enderror</span>
           </div>
           
           <div class="mb-1">
             <label class="form-label">Product Description</label>
-            <textarea class="form-control" name="product_details" rows="3" >{{old('product_details')}}</textarea>
-            <span style="color:red;">@error('product_details'){{$message}}@enderror</span>
+            <textarea class="form-control" name="description" rows="3" >{{old('description')}}</textarea>
+            <span style="color:red;">@error('description'){{$message}}@enderror</span>
 
           </div>
           <div class="mb-1">

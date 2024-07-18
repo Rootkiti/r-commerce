@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Product;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 class ProductController extends Controller
 {
@@ -11,43 +12,18 @@ class ProductController extends Controller
     public function index()
     {
         // Normally, you'd fetch this data from a database.
-        $products = [
-            [
-                'name' => 'Smartphone',
-                'image' => 'images/smartphone.jpg',
-                'cost' => '$699',
-                'description' => 'A high-end smartphone with great features.'
-            ],
-            [
-                'name' => 'Smartphone',
-                'image' => 'images/smartphone.jpg',
-                'cost' => '$699',
-                'description' => 'A high-end smartphone with great features.'
-            ],
-            [
-                'name' => 'Smartphone',
-                'image' => 'images/smartphone.jpg',
-                'cost' => '$699',
-                'description' => 'A high-end smartphone with great features.'
-            ],
-            [
-                'name' => 'Smartphone',
-                'image' => 'images/smartphone.jpg',
-                'cost' => '$699',
-                'description' => 'A high-end smartphone with great features.'
-            ],
-            [
-                'name' => 'Smartphone',
-                'image' => 'images/smartphone.jpg',
-                'cost' => '$699',
-                'description' => 'A high-end smartphone with great features.'
-            ],
-            // Add more products as needed
-        ];
+        $products = Product::all();
+        $categories = Category::all();
 
-        return view('index', ['products' => $products]);
+        return view('index', ['products' => $products,'categories'=>$categories]);
     }
-
+   
+    // product count
+    function nCount(){
+        $productcount = Product::count();
+        $categorycount = Category::count();
+        return view('home')->with(['n_product'=>$productcount,'n_category'=>$categorycount]);
+    }
     // product category view
     function productCategory(){
         return view('category');
@@ -74,10 +50,10 @@ class ProductController extends Controller
     function manageCategories(){
         $categories = Category::all();
         // print_r($categories);
-        return view('manageCategory')->with('categories', $categories);
-
-      
+        return view('manageCategory')->with('categories', $categories);      
     }
+
+    
 
     function editCategory($id){
         $category = Category::find($id);
@@ -140,23 +116,75 @@ class ProductController extends Controller
             $request->validate([
                 'product_name'=>'required',
                 'product_category'=>'required',
-                'product_cost'=>'required',
-                'product_details'=>'required',
-                'image'=>'required'
-
-                
+                'price'=>'required',
+                'description'=>'required',
+                'image'=>'required'                
             ]);
-            $uploadedFileUrl = cloudinary()->upload($request->file('file')->getRealPath(),['folder'=>'r-commerce'])->getSecurePath();
 
-            
-            $data['category_name'] = $request->cat_name;
-            $data['category_details'] = $request->cat_details;
+            $uploadedFileUrl = cloudinary()->upload($request->file('image')->getRealPath(),['folder'=>'r-commerce'])->getSecurePath();
+            if($uploadedFileUrl !=''){
+                $data['product_name'] = $request->product_name;
+                $data['category'] = $request->product_category;
+                $data['price'] = $request->price;
+                $data['description'] = $request->description;
+                $data['imageUrl'] = $uploadedFileUrl;
+        
+                $product = Product::create($data);
+        
+                if(!$product){
+                    return redirect(route('add product'))->with('error', 'something went wrong');
+                }
+                else{
+                    return redirect(route('add product'))->with('success', 'Product added!!');
     
-            $category = Category::create($data);
-    
-            if(!$category){
-                return redirect(route('category'))->with('error', 'registration failed');
+                }
             }
-            return redirect(route('category'))->with('success', 'category added!!');
+            else{
+                return redirect(route('add product'))->with('error', 'something went wrong while uploading image');
+
+            }
+            
+           
+        }
+
+        function viewProducts(){
+            $products = Product::all();
+            $categories = Category::all();
+            return view('product.manageProducts')->with(['products'=>$products, 'categories'=>$categories]);
+        }
+        function editProduct($id){
+            $product = Product::find($id);
+            $category = Category::find($product->category);
+            $categories = Category::all();
+            return view('product.editProduct')->with(['product'=>$product, 'id'=>$id, 'category'=>$category, 'categories'=>$categories]);
+        }
+    // delete category
+        function deleteProduct($id){
+            $product = Product::find($id);
+            $token = explode('/', $product->imageUrl);
+            $token2 = explode('.', $token[sizeof($token)-1]);
+            $publicId=$token2[0];
+            $dest =Cloudinary::destroy('r-commerce/'.$publicId);
+                        
+            if($dest['result'] == 'ok'){
+                $delete_product = Product::find($id)->delete();
+                if($delete_product){
+                    return redirect(route('manage products'))->with('success', 'product deleted!!');
+
+                }
+                else{
+                    return redirect(route('manage products'))->with('error', 'Something went wrong');
+
+                } 
+            }
+            else{
+                return redirect(route('manage products'))->with('error', 'Something went wrong');
+
+            }
+            // return view('product.delete')->with(['img'=>$product->imageUrl,'token'=>$publicId]);
+
+               
+            // // get url from a file
+            // $url = Cloudinary::getUrl($publicId);
         }
 }

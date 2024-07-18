@@ -30,20 +30,21 @@
             <input type="text" id="search" placeholder="Search for products...">
             <select id="category">
                 <option value="all">All</option>
-                <option value="smartphones">Smartphones</option>
-                <option value="laptops">Laptops</option>
-                <option value="tablets">Tablets</option>
+                @foreach($categories as $category)
+                <option value="smartphones">{{$category->category_name}}</option>
+                @endforeach
+                
                 <!-- Add more categories as needed -->
             </select>
         </header>
         <div class="product-list">
             @foreach($products as $product)
                 <div class="product-item">
-                    <img src="https://res.cloudinary.com/dfv1pynlp/image/upload/v1721073497/kbjnmt9fxb5fhh7qthsa.png" alt="{{ $product['name'] }}">
-                    <h2>{{ $product['name'] }}</h2>
-                    <p>{{ $product['cost'] }}</p>
-                    <button class="add-to-cart" data-name="{{ $product['name'] }}" data-cost="{{ $product['cost'] }}">Add to Cart</button>
-                    <a href="#" class="more-info" data-description="{{ $product['description'] }}">More Info</a>
+                    <img src="{{$product->imageUrl}}" alt="{{ $product->product_name }}">
+                    <h2>{{ $product->product_name}}</h2>
+                    <p>{{ $product->price }}</p>
+                    <button class="add-to-cart" data-name="{{ $product->product_name }}" data-cost="{{ $product->price }}">Add to Cart</button>
+                    <a href="#" class="more-info" data-description="{{ $product->description }}">More Info</a>
                 </div>
             @endforeach
         </div>

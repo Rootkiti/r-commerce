@@ -12,7 +12,13 @@
                 <div class="col-sm-2 mb-3 mb-sm-0" style="width:200px;">
                   <div class="card">
                     <div class="card-body" style="width:200px; height:200px;">
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                      <div>
+                        Total Categories
+                      </div>
+                      <div style="padding: 60px;">
+                        {{$n_category}}
+                      </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -20,34 +26,16 @@
                 <div class="col-sm-2" style="width:200px;">
                   <div class="card">
                     <div class="card-body" style="width:200px; height:200px;">
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                      <div>
+                        Total Products
+                      </div>
+                      <div style="padding: 60px;">
+                        {{$n_product}}
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="col-sm-2" style="width:200px;">
-                    <div class="card">
-                      <div class="card-body" style="width:200px; height:200px;">
-                          <a href="#" class="btn btn-primary">Go somewhere</a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-sm-2" style="width:200px;">
-                    <div class="card">
-                      <div class="card-body" style="width:200px; height:200px;">
-                          <a href="#" class="btn btn-primary">Go somewhere</a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-sm-2" style="width:200px;">
-                    <div class="card">
-                      <div class="card-body" style="width:200px; height:200px;">
-                          <a href="#" class="btn btn-primary">Go somewhere</a>
-                      </div>
-                    </div>
-                  </div>
               </div>
         </div>
     </div>

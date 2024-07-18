@@ -5,19 +5,17 @@ use App\Http\Controllers\Authmanager;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\ProductController;
 
-Route::get('/', function () {
-    return view('home');
-    
-})->name('home');
+Route::get('/home', function () {return view('home');})->name('dashboard');
 Route::get('/', [App\Http\Controllers\ProductController::class, 'index'])->name('index');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [ProductController::class, 'nCount'])->name('home');
+
 
 
 Route::get('/login',[Authmanager::class, 'login'])->name('login');
@@ -42,3 +40,6 @@ Route::get('/deletecategory/{id}',[ProductController::class, 'deleteCategory']);
 
 Route::get('/addProduct',[ProductController::class, 'addProduct'])->name('add product');
 Route::post('/addProduct',[ProductController::class, 'addProductPost'])->name('addProduct.post');
+Route::get('/manageProducts',[ProductController::class, 'viewproducts'])->name('manage products');
+Route::get('/editProduct/{id}',[ProductController::class, 'editProduct']);
+Route::get('/deleteProduct/{id}',[ProductController::class, 'deleteProduct']);

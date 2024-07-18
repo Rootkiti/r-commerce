@@ -18,7 +18,7 @@
                 </button>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{{route('add product')}}">Add Product</a></li>
-                  <li><a class="dropdown-item" href="{{route('managecat')}}">Manage product</a></li>
+                  <li><a class="dropdown-item" href="{{route('manage products')}}">Manage product</a></li>
                 </ul>
               </div> <br>
             
