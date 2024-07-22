@@ -120,32 +120,42 @@ class ProductController extends Controller
                 'product_name'=>'required',
                 'product_category'=>'required',
                 'price'=>'required',
+                'quantity'=>'required',
                 'description'=>'required',
                 'image'=>'required'                
             ]);
-
-            $uploadedFileUrl = cloudinary()->upload($request->file('image')->getRealPath(),['folder'=>'r-commerce'])->getSecurePath();
-            if($uploadedFileUrl !=''){
-                $data['product_name'] = $request->product_name;
-                $data['category'] = $request->product_category;
-                $data['price'] = $request->price;
-                $data['description'] = $request->description;
-                $data['imageUrl'] = $uploadedFileUrl;
+            try {
+                $uploadedFileUrl = cloudinary()->upload($request->file('image')->getRealPath(),['folder'=>'r-commerce'])->getSecurePath();
+                if($uploadedFileUrl !=''){
+                    $data['product_name'] = $request->product_name;
+                    $data['category'] = $request->product_category;
+                    $data['price'] = $request->price;
+                    $data['description'] = $request->description;
+                    $data['imageUrl'] = $uploadedFileUrl;
+                    $data['quantity'] = $request->quantity;
+                    
+            
+                    $product = Product::create($data);
+            
+                    if(!$product){
+                        return redirect(route('add product'))->with('error', 'something went wrong');
+                    }
+                    else{
+                        return redirect(route('add product'))->with('success', 'Product added!!');
         
-                $product = Product::create($data);
-        
-                if(!$product){
-                    return redirect(route('add product'))->with('error', 'something went wrong');
+                    }
                 }
                 else{
-                    return redirect(route('add product'))->with('success', 'Product added!!');
+                    return redirect(route('add product'))->with('error', 'something went wrong while uploading image');
     
                 }
-            }
-            else{
-                return redirect(route('add product'))->with('error', 'something went wrong while uploading image');
+            } catch (\Throwable $th) {
+                return redirect(route('add product'))->with('error', 'There is an issue with cloudinay');
 
             }
+            
+
+           
             
            
         }

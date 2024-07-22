@@ -1,9 +1,13 @@
-@extends('layouts.layouts')
-@section('title', 'Add Product')
+@extends('adminlte::page')
+@extends('layouts/adminLayout')
+@section('title', 'Add Category')
+
+@section('content_header')
+    <h1>Add Product</h1>
+@stop
+
 @section('content')
-@include('includes.topNav')
-@include('includes.leftbar')
-<div class="category-container" style="margin-top: -46%;">
+<div class="" style="margin-top: -130px;">
     
 
     <form action="{{route('addProduct.post')}}" method="POST" style="width: 500px;" enctype="multipart/form-data">
@@ -53,6 +57,11 @@
             <label  class="form-label">Price</label>
             <input type="text" name="price" class="form-control" value="{{old('price')}}">
             <span style="color:red;">@error('price'){{$message}}@enderror</span>
+          </div>
+          <div class="mb-1">
+            <label  class="form-label">Quantity</label>
+            <input type="text" name="quantity" class="form-control"  pattern="^-?\d+(\.\d+)?$" value="{{old('quantity')}}">
+            <span style="color:red;">@error('quantity'){{$message}}@enderror</span>
           </div>
           
           <div class="mb-1">

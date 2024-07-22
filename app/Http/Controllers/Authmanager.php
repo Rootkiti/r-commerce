@@ -27,7 +27,7 @@ class Authmanager extends Controller
         
         $credentials = $request->only('email','password');
         if(Auth::Attempt($credentials)){
-            return redirect()->intended(route('home'));
+            return redirect()->intended(route('index'));
         }
         return redirect(route('login'))->with('error', 'Invalid Credentials');
     }
@@ -65,10 +65,10 @@ class Authmanager extends Controller
 
     function logout(Request $request){
         Session::flush();
-        Auth::logout();
+        auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect(route('login'));
+        return redirect(route('index'));
     }
 }

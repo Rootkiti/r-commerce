@@ -1,8 +1,12 @@
-@extends('layouts.layouts')
-@section('title', 'Edit category')
+@extends('adminlte::page')
+@extends('layouts/adminLayout')
+@section('title', 'Edit Category')
+
+@section('content_header')
+    <h1>Edit Product Category</h1>
+@stop
+
 @section('content')
-@include('includes.topNav')
-@include('includes.leftbar')
 <div class="category-container" style="#">
 
     @if($category == '')

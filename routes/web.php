@@ -48,6 +48,10 @@ Route::get('/deleteProduct/{id}',[ProductController::class, 'deleteProduct']);
 Route::post('/updateproduct/{id}',[ProductController::class, 'editProductPost'])->name('editproduct.post');
 
 // cart
-Route::post('/',[CartController::class, 'store'])->name('cart.store');
+Route::get('/store/{id}',[CartController::class, 'store'])->name('cart.store');
+Route::get('/cartContent',[CartController::class, 'cartContent'])->name('cartContent');
+
+
+Route::get('/admin',[CartController::class, 'test']);
 
 

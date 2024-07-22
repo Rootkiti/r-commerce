@@ -1,12 +1,16 @@
-@extends('layouts.layouts')
+@extends('adminlte::page')
+@extends('layouts/adminLayout')
 @section('title', 'Edit Product')
+
+@section('content_header')
+    <h1>Edit Products</h1>
+@stop
+
 @section('content')
-@include('includes.topNav')
-@include('includes.leftbar')
-<div style="margin-top: -45.5%;">
+<div style="margin-top: -15%">
 
     @if($product == '')
-        <h3 style="margin-left:600px; margin-top: 20%;">No product Found</h3>
+        <h3 style="">No product Found</h3>
     @else 
     <form action="/updateproduct/{{$product->id}}" method="POST" style="width: 500px;" enctype="multipart/form-data">
         @csrf
