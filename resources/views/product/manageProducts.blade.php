@@ -56,9 +56,10 @@
                         <td>{{$product->quantity}}</td>
 
                         <td>
-                            <a href="/editProduct/{{$product->id}}" class="btn btn-primary btn-small">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            <a href="/editProduct/{{$product->id}}" class="btn btn-primary btn-smal" style="">
+                                <i class="fa fa-pencil" style="color: white;" aria-hidden="true">Edit</i>
                             </a>
+                            <br><br>
                             <a href="/deleteProduct/{{$product->id}}" class="btn btn-primary btn-small">
                                 <i class="fa fa-trash"></i>
                             </a>

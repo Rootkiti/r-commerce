@@ -42,6 +42,32 @@
                   </div>
                 </div>
 
+                <div class="col-sm-2" style="width:200px;">
+                  <div class="card" style="background-color: rgb(110, 149, 121)">
+                    <div class="card-body" style="width:200px; height:200px;">
+                      <div style="font-size: 18px;">
+                        Total Clients
+                      </div>
+                      <div style="padding: 60px;">
+                        1
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-2" style="width:200px;">
+                  <div class="card" style="background-color: rgb(159, 197, 228)">
+                    <div class="card-body" style="width:200px; height:200px;">
+                      <div style="font-size: 18px;">
+                        Total Orders
+                      </div>
+                      <div style="padding: 60px;">
+                        0
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
         </div>
     </div>

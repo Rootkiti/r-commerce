@@ -42,7 +42,7 @@
                 <td>{{$category->category_details}}</td>
                 <td>
                     <a href="/edit-category/{{$category->id}}" class="btn btn-primary btn-small">
-                        <i class="fas fa-pencil" aria-hidden="true"></i>
+                        <i class="fa fa-pencil" aria-hidden="true">Edit</i>
                     </a>
                     <a href="/deletecategory/{{$category->id}}" class="btn btn-primary btn-small">
                         <i class="fa fa-trash"></i>

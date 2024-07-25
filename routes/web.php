@@ -50,8 +50,11 @@ Route::post('/updateproduct/{id}',[ProductController::class, 'editProductPost'])
 // cart
 Route::get('/store/{id}',[CartController::class, 'store'])->name('cart.store');
 Route::get('/cartContent',[CartController::class, 'cartContent'])->name('cartContent');
+// remove product from cart
+Route::get('/remove/{id}',[CartController::class, 'remove'])->name('remove');
 
 
-Route::get('/admin',[CartController::class, 'test']);
+// order
+Route::post('/comfirm_order',[CartController::class, 'comfirm_order'])->name('comfirm_order');
 
 
